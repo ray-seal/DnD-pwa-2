@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="D&D Adventure PWA - Create characters and play Lost Mines of Phandelver">
+    <meta name="theme-color" content="#8B0000">
+    <title>D&D Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon-192.png">
+</head>
+<body>
+    <div id="app">
+        <!-- Welcome Screen -->
+        <section id="welcome-screen" class="screen active">
+            <div class="container">
+                <h1>🐉 D&D Adventure</h1>
+                <p class="subtitle">Lost Mines of Phandelver</p>
+                <button id="start-btn" class="btn btn-primary">Start New Adventure</button>
+                <button id="continue-btn" class="btn btn-secondary">Continue Adventure</button>
+            </div>
+        </section>
+
+        <!-- Character Creation Screen -->
+        <section id="character-creation-screen" class="screen">
+            <div class="container">
+                <h2>Create Your Character</h2>
+                
+                <form id="character-form">
+                    <div class="form-group">
+                        <label for="player-name">Player Name:</label>
+                        <input type="text" id="player-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="character-name">Character Name:</label>
+                        <input type="text" id="character-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="race">Race:</label>
+                        <select id="race" required>
+                            <option value="">Select Race</option>
+                            <option value="Human">Human</option>
+                            <option value="Elf">Elf</option>
+                            <option value="Dwarf">Dwarf</option>
+                            <option value="Halfling">Halfling</option>
+                            <option value="Half-Elf">Half-Elf</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="class">Class:</label>
+                        <select id="class" required>
+                            <option value="">Select Class</option>
+                            <option value="Fighter">Fighter</option>
+                            <option value="Cleric">Cleric</option>
+                            <option value="Rogue">Rogue</option>
+                            <option value="Wizard">Wizard</option>
+                        </select>
+                    </div>
+
+                    <div class="stats-container">
+                        <h3>Ability Scores</h3>
+                        <button type="button" id="roll-stats-btn" class="btn btn-secondary">Roll Stats</button>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <label>Strength:</label>
+                                <input type="number" id="strength" readonly>
+                            </div>
+                            <div class="stat-item">
+                                <label>Dexterity:</label>
+                                <input type="number" id="dexterity" readonly>
+                            </div>
+                            <div class="stat-item">
+                                <label>Constitution:</label>
+                                <input type="number" id="constitution" readonly>
+                            </div>
+                            <div class="stat-item">
+                                <label>Intelligence:</label>
+                                <input type="number" id="intelligence" readonly>
+                            </div>
+                            <div class="stat-item">
+                                <label>Wisdom:</label>
+                                <input type="number" id="wisdom" readonly>
+                            </div>
+                            <div class="stat-item">
+                                <label>Charisma:</label>
+                                <input type="number" id="charisma" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Begin Adventure</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Game Screen -->
+        <section id="game-screen" class="screen">
+            <div class="container">
+                <!-- Character Sheet Panel -->
+                <div id="character-sheet" class="panel">
+                    <h3>Character Sheet</h3>
+                    <div id="character-info"></div>
+                </div>
+
+                <!-- Adventure Log -->
+                <div id="adventure-log" class="panel">
+                    <h3>Adventure Log</h3>
+                    <div id="story-content"></div>
+                </div>
+
+                <!-- Dice Roller -->
+                <div id="dice-roller" class="panel">
+                    <h3>Dice Roller</h3>
+                    <div class="dice-buttons">
+                        <button class="btn btn-dice" data-dice="d20">d20</button>
+                        <button class="btn btn-dice" data-dice="d12">d12</button>
+                        <button class="btn btn-dice" data-dice="d10">d10</button>
+                        <button class="btn btn-dice" data-dice="d8">d8</button>
+                        <button class="btn btn-dice" data-dice="d6">d6</button>
+                        <button class="btn btn-dice" data-dice="d4">d4</button>
+                    </div>
+                    <div id="dice-result"></div>
+                </div>
+
+                <!-- Action Panel -->
+                <div id="action-panel" class="panel">
+                    <h3>Actions</h3>
+                    <div id="action-buttons"></div>
+                </div>
+
+                <!-- Controls -->
+                <div class="controls">
+                    <button id="save-btn" class="btn btn-secondary">Save Game</button>
+                    <button id="reset-btn" class="btn btn-danger">New Adventure</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
