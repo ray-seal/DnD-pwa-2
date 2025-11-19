@@ -1,0 +1,82 @@
+<!-- 
+  PWA INTEGRATION SNIPPET
+  
+  Copy the sections below into your index.html to enable PWA features.
+  
+  SECTION 1: Add to <head> section (after existing meta tags and before </head>)
+-->
+
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DnD PWA">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.webmanifest">
+
+<!-- Icons for various devices -->
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+
+<!-- 
+  SECTION 2: Add before closing </body> tag (after your app.js script)
+-->
+
+<!-- Service Worker Registration -->
+<script src="/sw-register.js"></script>
+
+<!-- 
+  OPTIONAL: Install Prompt Handler
+  
+  Add this script if you want to control when the install prompt appears
+-->
+<script>
+  let deferredPrompt;
+  
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    
+    // Optionally, show your own install button
+    const installButton = document.getElementById('install-btn');
+    if (installButton) {
+      installButton.style.display = 'block';
+      
+      installButton.addEventListener('click', async () => {
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to install prompt: ${outcome}`);
+        // Clear the deferredPrompt
+        deferredPrompt = null;
+        // Hide the install button
+        installButton.style.display = 'none';
+      });
+    }
+  });
+  
+  window.addEventListener('appinstalled', () => {
+    console.log('PWA was installed');
+    // Clear the deferredPrompt
+    deferredPrompt = null;
+  });
+</script>
+
+<!--
+  NOTES:
+  
+  1. Update the theme_color in manifest.webmanifest to match your app's theme
+  2. Ensure all icon files exist in /icons/ directory
+  3. Test the PWA features in Chrome DevTools > Application tab
+  4. For production, serve over HTTPS (or use localhost for testing)
+  5. Consider adding an install button to your UI (id="install-btn")
+  
+  EXAMPLE INSTALL BUTTON:
+  <button id="install-btn" style="display: none;" class="btn btn-primary">
+    📱 Install App
+  </button>
+-->
